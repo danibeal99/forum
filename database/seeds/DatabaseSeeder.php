@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -11,9 +13,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call('UserTableSeeder');
+        $this->call([
+            UserSeeder::class,
+        ]);
 
-        $this->command->info('User table seeded!');
+        
+
+        // $this->call('Factory');
+
+        // $this->command->info('User table seeded!');
     }
 }
 

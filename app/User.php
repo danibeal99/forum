@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -35,5 +37,30 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+   
     ];
+
+    public function posts()
+    {
+        return $this->hasMany('Post');
+    }
+
+
+
 }
+
+
+// class User extends Model
+
+// {
+
+// public function posts()
+//     {
+//         return $this->hasMany('Post');
+//     }
+
+// }
+
+// $posts = User::find(1)->posts;
+
+// foreach ($posts as $post) { }

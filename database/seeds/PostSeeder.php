@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+ 
 
 class PostSeeder extends Seeder
 {
@@ -13,7 +14,8 @@ class PostSeeder extends Seeder
     {
         DB::table('posts')->insert([
             'title' => Str::random(10),
-            'body' => Str::random(10)
+            'body' => Str::random(10),
+            'user_id' => '1'
         ]);
 
         
@@ -21,7 +23,3 @@ class PostSeeder extends Seeder
     }
 }
 
-$posts = App\Post::all();
-foreach ($posts as $post) {
-    echo $post->Title;
-}
