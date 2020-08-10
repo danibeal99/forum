@@ -12,11 +12,7 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('posts')->insert([
-            'title' => Str::random(10),
-            'body' => Str::random(10),
-            'user_id' => '1'
-        ]);
+        factory(App\Post::class, 1)->create();
 
         
 
