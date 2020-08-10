@@ -17,8 +17,9 @@ class PostController extends Controller
         $posts = Post::all();
         foreach ($posts as $post) {
         echo $post->title;
-}
     }
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -88,3 +89,5 @@ class PostController extends Controller
 }
 
 
+
+//
