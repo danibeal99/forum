@@ -18,6 +18,7 @@ class CreatePostsTable extends Migration
             $table->timestamps();
             $table->string('title', 100);
             $table->string('body', 1000);
+
         });
     }
 
