@@ -14,7 +14,7 @@
 @foreach ($posts as $post)
     <p>Title {{ $post->title }}</p>
     <p>Body {{ $post->body }}</p>
-    <a href='/posts/{{$post->id}}'>{{ $post->title}} link</a> 
+    <a href='/posts/{{$post->id}}'>{{ $post->title}} linky</a> 
 @endforeach</p>
 
     </p>

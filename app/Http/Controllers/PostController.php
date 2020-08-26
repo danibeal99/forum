@@ -14,16 +14,25 @@ class PostController extends Controller
         return view ('posts/index', compact ('posts'));
     }
 
-    public function create()
+    public function create($newpost)
     {
+        $newpost =  Post::create([
+        'title' =>
+        'body'=>
 
-        //return a view
+        ])
+
+        return view ('posts/createpost', compact ('posts'));
     }
 
     public function store(Request $request)
     {
-        // store request supplied by form look into requests !!
-    }
+        $post = new Post;
+
+        $post->title = $request->title;
+        $post->body = $request->body;
+
+        $post->save();    }
 
     /**
      * Display the specified resource.
