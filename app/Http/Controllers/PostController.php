@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StorePost;
 
 class PostController extends Controller
 {
@@ -14,26 +16,31 @@ class PostController extends Controller
         return view ('posts/index', compact ('posts'));
     }
 
-    public function create($newpost)
+    public function create()
     {
-        $newpost =  Post::create([
-        'title' =>
-        'body'=>
-
-        ])
-
-        return view ('posts/createpost', compact ('posts'));
+        return view ('posts/createpost');
     }
 
-    public function store(Request $request)
+    public function store(StorePost $request)
     {
-        $post = new Post;
+        foreach ($request->post as $post)
+        
+        {$post =  Post::create([
 
-        $post->title = $request->title;
-        $post->body = $request->body;
+            'title'       => $request->input('post'),
+            'body'   => $request->input('post'),
+            'user_id'   =>  Auth::user(),
 
-        $post->save();    }
 
+
+        ]);
+
+        $post->save();
+
+        }
+
+
+    }
     /**
      * Display the specified resource.
      *

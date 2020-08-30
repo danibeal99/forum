@@ -25,12 +25,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('posts', 'PostController');
 
-Route::get('whatever', function () {
-    return view('child', ['name' => 'Samantha']);
-});
-
-
 Route::get('users', 'UsersController@index');
+
+
+//Route::post('posts','PostController@store')->name('post.store');
 
 
 
