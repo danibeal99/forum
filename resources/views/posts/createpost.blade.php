@@ -6,18 +6,20 @@
             <div class="col-md-8">
                 <div class="card">
                     <div>
-                        @if(!empty($errors->first()))
-                            <div class="row col-lg-12">
-                                <div class="alert alert-danger">
-                                    <span>{{ $errors->first() }}</span>
-                                </div>
+                        @if ($errors->any())
+                             <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
                         @endif
                     </div>
                     <h2 class="text-center">Create a Post</h2>
                     <form action="{{route('posts.store')}}" method="POST">
                         @csrf
-                        <label for="post[title]">Title</label>
+                        <label for="post[title]"> Title</label>
                         <input class ='form-control' type="text" id="post[title]" name="post[title]" value ='{{old('post.title')}}' >
                         <br>
                         <label for="post[body]">Body</label>
@@ -26,7 +28,10 @@
                         <button type="submit" class="btn btn-primary">Submit</button>                       
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
 @endsection
+
+<a href={{route('posts.index')}}>Back to posts </a> 

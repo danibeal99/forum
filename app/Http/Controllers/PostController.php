@@ -9,9 +9,22 @@ use App\Http\Requests\StorePost;
 
 class PostController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('auth'); 
+    // }
+
     public function index()
     {
         $posts = Post::all();
+
+        return view ('posts/index', compact ('posts'));
+    }
+
+    public function myposts()
+    {
+        $posts = Post::where('user_id', '16');
+        return dd($posts);
 
         return view ('posts/index', compact ('posts'));
     }
@@ -23,23 +36,15 @@ class PostController extends Controller
 
     public function store(StorePost $request)
     {
-        foreach ($request->post as $post)
-        
-        {$post =  Post::create([
 
-            'title'       => $request->input('post'),
-            'body'   => $request->input('post'),
-            'user_id'   =>  Auth::user(),
+        $postdata = $request->input('post');
 
+            $postdata['user_id'] =  Auth::user()->id;
+            $post =  Post::create($postdata);
+            return redirect(route('posts.show', ['post' => $post->id]));
+         
 
-
-        ]);
-
-        $post->save();
-
-        }
-
-
+       
     }
     /**
      * Display the specified resource.
@@ -59,7 +64,8 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        // edit a post
+        return view('posts/updatepost', ['post' => $post]);
+       
     }
 
     /**
@@ -71,7 +77,18 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+
+        $post = Post::find($id);
+        
+
+
+        $post = Post::where('id',$request->ID)  
+        ->update(['title'=>$request->input('post')]);
+
+       
+        // return dd($request);
+        // $Updatepost = $request->input('post');
+        
     }
 
     /**
@@ -82,9 +99,16 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        // delete a post
+        
+
+        $post->delete();
+
+        return redirect(route('posts.index'))->with('message', 'Post Deleted');
     }
 }
+
+
+
 
 
 
