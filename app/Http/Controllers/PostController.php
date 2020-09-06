@@ -18,17 +18,17 @@ class PostController extends Controller
     {
         $posts = Post::all();
 
+       
         return view ('posts/index', compact ('posts'));
     }
 
     public function myposts()
     {
+        $user_id = Auth::user()->id;
 
+        $posts = Post::where('user_id', $user_id)->get();
 
-        $posts = Post::where('user_id', '16');
-        return dd($posts);
-
-        return view ('posts/index', compact ('posts'));
+        return view ('posts/showmyposts', compact ('posts'));
     }
 
     public function create()
