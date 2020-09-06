@@ -28,13 +28,15 @@
         {{ session()->get('message') }}
     </div>
     @endif
-    
+
 </div>
 
 
 <h2 class="text-center">All posts</h2> 
 <div class="container">
-<h3> <b> <a href={{route('posts.create')}}>Create a post </a> </b></h3>
+<h3> <b> <a href={{route('posts.create')}}>Create a post </a> <p align ="right"><a href={{route('myposts')}}>Go to my posts</a> </p></b></h3>
+
+
 <p>
     <p>
     <div class="card-body">

@@ -9,10 +9,10 @@ use App\Http\Requests\StorePost;
 
 class PostController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth'); 
-    // }
+     public function __construct()
+    {
+        $this->middleware('auth'); 
+    }
 
     public function index()
     {
@@ -23,6 +23,8 @@ class PostController extends Controller
 
     public function myposts()
     {
+
+
         $posts = Post::where('user_id', '16');
         return dd($posts);
 
@@ -78,14 +80,18 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
 
-        $post = Post::find($id);
-        
+        //return dd($request->input('post'));
+
+       // $post->title=$request->input('post'['title']);
+
+       $postdata = $request->input('post');
 
 
-        $post = Post::where('id',$request->ID)  
-        ->update(['title'=>$request->input('post')]);
+        $post->update(['title'=>$postdata['title']]);
+        $post->update(['body'=>$postdata['body']]);
 
-       
+        return redirect(route('posts.show', ['post' => $post->id]))->with('message', 'Post Updated');
+
         // return dd($request);
         // $Updatepost = $request->input('post');
         

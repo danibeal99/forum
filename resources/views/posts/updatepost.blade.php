@@ -21,8 +21,9 @@
                             <p>Title: {{ $post->title }}</p>
                             <p>Body: {{ $post->body }}</p>
                         
-                        <form action={{route('posts.update',['post' => $post->id])}} method="PUT">
-                            @csrf
+                        <form action={{route('posts.update',['post' => $post->id])}} method="POST">
+                            <input type="hidden" name="_method" value="PUT">
+                            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                             <label for="post[title]"> Title</label>
                             <input class ='form-control' type="text" id="post[title]" name="post[title]" value ={{old('post.title', $post->title ) }} >
                             <br>
