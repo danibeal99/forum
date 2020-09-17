@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model 
 
 {
-    public $fillable = array('CommentTitle', 'CommentBody', 'user_id');
+    public $fillable = array('CommentTitle', 'CommentBody', 'user_id','post_id');
 
     public function user()
     {
@@ -17,10 +17,10 @@ class Comment extends Model
 
     public function post()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('post');
         
     }
 
-    protected $primaryKey = 'comment_id';
+    public $primaryKey = 'comment_id';
 }
     

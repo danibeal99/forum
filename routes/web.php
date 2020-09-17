@@ -28,6 +28,9 @@ Route::get('/myposts', 'PostController@myposts')->name('myposts');
 
 Route::resource('posts', 'PostController');
 
+Route::resource('posts.comment', 'CommentController');
+
+
 Route::get('users', 'UsersController@index');
 
 
