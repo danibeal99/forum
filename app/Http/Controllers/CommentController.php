@@ -44,10 +44,6 @@ class CommentController extends Controller
             $commentdata['user_id'] =  Auth::user()->id;
             $commentdata['post_id'] =  $post->id;
 
-
-           dd($commentdata);
-
-            //dd($commentdata);
             $comment =  Comment::create($commentdata);
             return redirect(route('posts.show', ['post' => $post->id]));
          
@@ -60,22 +56,29 @@ class CommentController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show($comments, $postid)
+    public function show($post, $comment)
 
     {   
+        $post = Post::find($post);
+        $comment = Comment::find($comment);
+        //dd($comment);
+        //$comment = Comment::find($comment_id)->get();;
 
-        //$post = Post::find($id);
+         return view('comments/show', ['comment'=>$comment,'post'=>$post ]);
 
-        $comments = Comment::where('post_id',$postid)->get();
+
+        //$comments = Comment::where('post_id',$postid)->get();
 
 
 
     }
 
 
-    public function edit(Post $post)
+    public function edit($post, $comment)
     {
-        return view('posts/updatepost', ['post' => $post]);
+
+        dd($post);
+        return view('comments/updatecomment', ['comment' => $comment]);
        
     }
 
@@ -112,13 +115,14 @@ class CommentController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($post, $comment)
     {
         
+        $post = Post::find($post);
 
-        // $post->delete();
-
-        // return redirect(route('posts.index'))->with('message', 'Post Deleted');
+        $comment->delete();
+  
+        return redirect('posts.show', ['post' => $post->id])->with('message', 'Comment Deleted');
     }
 }
 
