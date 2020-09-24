@@ -28,7 +28,7 @@
     <p><b>Title: {{ $post->title }}</b></p>
     <p>Body: {{ $post->body }}</p>
     <a href={{route('posts.show', ['post' => $post->id])}}> {{ $post->title}}linky</a>
-    <br> <br> 
+    <br>
     
 </div>  
 
