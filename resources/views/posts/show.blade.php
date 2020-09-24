@@ -10,10 +10,9 @@
 
 @section('content')
 
-</div>
 
-<p>
-    <p>
+<div class="col-4">  
+
     <p>Title: {{ $post->title }}</p>
     <p>Body: {{ $post->body }}</p>
     <a href={{route('posts.edit',['post' => $post->id])}}> Update post</a> 
@@ -34,7 +33,7 @@
                         <br>
                     @endforeach   
     <h3> <b> <a href={{route('posts.comment.create',['post' => $post->id])}}>Add a comment</a>  <br> 
-
+    </div>
 @endsection
 
 <a href={{route('posts.index')}}>Back to posts </a> 

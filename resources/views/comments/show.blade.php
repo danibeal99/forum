@@ -17,7 +17,7 @@
         <div>
     <p>Title: {{ $comment->CommentTitle }}</p>
     <p>Body: {{ $comment->CommentBody }}</p>
-    <a href={{route('posts.comment.edit',['post' => $post->id, 'comment' => $comment->comment_id])}}> Update post</a> 
+    <a href={{route('posts.comment.edit',['post' => $post->id, 'comment' => $comment->comment_id])}}> Update comment</a> 
     <form action="{{route('posts.comment.destroy',['post' => $post->id, 'comment' => $comment->comment_id])}}" method="POST">  
         @method('DELETE')
         @csrf                 
@@ -27,4 +27,4 @@
 </div>
 
 @endsection
-<a href={{route('posts.index')}}>Back to posts </a> 
+<a href={{route('posts.show', ['post' => $post->id])}}>Back to post </a> 

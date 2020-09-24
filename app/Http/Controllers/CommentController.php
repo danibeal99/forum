@@ -76,9 +76,11 @@ class CommentController extends Controller
 
     public function edit($post, $comment)
     {
+        $post = Post::find($post);
 
-        dd($post);
-        return view('comments/updatecomment', ['comment' => $comment]);
+        $comment = Comment::find($comment);
+       
+        return view('comments/updatecomment', ['comment' => $comment, 'post' => $post]);
        
     }
 
@@ -89,15 +91,17 @@ class CommentController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Post $post, Comment $comment)
     {
 
         //return dd($request->input('post'));
 
        // $post->title=$request->input('post'['title']);
 
-    //    $postdata = $request->input('post');
+        $commentdata = $request->input('comment');
 
+        $comment->update(['CommentTitle'=>$commentdata['CommentTitle']]);
+        $comment->update(['CommentBody'=>$commentdata['CommentBody']]);
 
     //     $post->update(['title'=>$postdata['title']]);
     //     $post->update(['body'=>$postdata['body']]);
@@ -106,6 +110,9 @@ class CommentController extends Controller
 
         // return dd($request);
         // $Updatepost = $request->input('post');
+
+        return redirect(route('posts.show', ['post' => $post->id]))->with('message', 'Comment Updated');
+
         
     }
 
@@ -117,12 +124,15 @@ class CommentController extends Controller
      */
     public function destroy($post, $comment)
     {
-        
+      
         $post = Post::find($post);
+
+        $comment = Comment::find($comment);
 
         $comment->delete();
   
-        return redirect('posts.show', ['post' => $post->id])->with('message', 'Comment Deleted');
+        return redirect(route('posts.show', ['post' => $post->id]))->with('message', 'Comment Deleted');
+
     }
 }
 

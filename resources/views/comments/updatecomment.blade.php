@@ -18,17 +18,17 @@
                     </div>
                         <h2 class="text-center">Update Comment</h2>
 
-                            <p>Title: {{ $comment->title }}</p>
-                            <p>Body: {{ $comment->body }}</p>
+                            <p>Title: {{ $comment->CommentTitle }}</p>
+                            <p>Body: {{ $comment->CommentBody }}</p>
                         
-                        <form action={{route('posts.comment.update',['post' => $post->id])}} method="POST">
+                        <form action={{route('posts.comment.update',['post' => $post->id,'comment'=> $comment->comment_id])}} method="POST">
                             <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                            <label for="post[title]"> Title</label>
-                            <input class ='form-control' type="text" id="post[title]" name="post[title]" value ={{old('post.title', $post->title ) }} >
+                            <label for="comment[CommentTitle]"> Title</label>
+                            <input class ='form-control' type="text" id="comment[CommentTitle]" name="comment[CommentTitle]" value ={{old('comment.Commenttitle', $comment->CommentTitle ) }} >
                             <br>
-                            <label for="post[body]">Body</label>
-                            <textarea type="text" class="form-control" id="post[body]" name="post[body]">{{old('post.body', $post->body )}}</textarea>
+                            <label for="comment[commentbody]">Body</label>
+                            <textarea type="text" class="form-control" id="comment[CommentBody]" name="comment[CommentBody]">{{old('comment.CommentBody', $comment->CommentBody )}}</textarea>
                             <br>
                             <button type="submit" class="btn btn-primary">Submit Update</button>   
                             
@@ -40,4 +40,4 @@
     </div>
 @endsection
 
-<a href={{route('posts.index')}}>Back to posts </a> 
+<a href={{route('posts.show', ['post' => $post->id])}}>Back to post </a> 

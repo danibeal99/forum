@@ -17,15 +17,25 @@
 
 
 <div class="container">
-    <div class="card-body">
-@foreach ($posts as $post)
-<div class="col-4">
-    <p>Title {{ $post->title }}</p>
-    <p>Body {{ $post->body }}</p>
-    <a href={{route('posts.show', ['post' => $post->id])}}> {{ $post->title}}linky</a> 
+    
+    <div class="card-body">   
+
+ @foreach ($posts as $post)
+
+ 
+<div class="col-4">   
+
+    <p><b>Title: {{ $post->title }}</b></p>
+    <p>Body: {{ $post->body }}</p>
+    <a href={{route('posts.show', ['post' => $post->id])}}> {{ $post->title}}linky</a>
+    <br> <br> 
+    
 </div>  
+
     {{-- <a href='{{route('posts.show')}}$post->id}}'>{{ $post->title}} linky</a>  --}}
-@endforeach</p>  
+@endforeach  
+
 </div>
 </div>
+
 @endsection

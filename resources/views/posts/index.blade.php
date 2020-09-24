@@ -4,9 +4,6 @@
 
 @section('sidebar')
 
-<h3> <b> <a href={{route('posts.create')}}>Create a post </a>  <br>                
-<a href={{route('myposts')}}>Go to my posts</a> </p></b></h3>
-
 @endsection
 
 @yield('sidebar')

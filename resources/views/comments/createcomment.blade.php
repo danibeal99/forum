@@ -26,4 +26,4 @@
     </div>
 @endsection
 
-<a href={{route('posts.index')}}>Back to posts </a> 
+<a href={{route('posts.show', ['post' => $post->id])}}>Back to post </a> 
