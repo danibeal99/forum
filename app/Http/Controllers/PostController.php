@@ -3,64 +3,85 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StorePost;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+     public function __construct()
+    {
+        $this->middleware('auth'); 
+    }
+
     public function index()
     {
         $posts = Post::all();
-        foreach ($posts as $post) {
-        echo $post->title;
-}
+
+       
+        return view ('posts/index', compact ('posts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function myposts()
+    {
+        $user_id = Auth::user()->id;
+
+        $posts = Post::where('user_id', $user_id)->get();
+
+        return view ('posts/showmyposts', compact ('posts'));
+    }
+
     public function create()
     {
-        //
+        return view ('posts/createpost');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StorePost $request)
     {
-        //
-    }
 
+        $postdata = $request->input('post');
+
+            $postdata['user_id'] =  Auth::user()->id;
+            $post =  Post::create($postdata);
+            return redirect(route('posts.show', ['post' => $post->id]));
+         
+
+       
+    }
     /**
      * Display the specified resource.
      *
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
+
     {
-        //
+        //$post = Post::find($id);
+
+        // dd($post);
+
+        $post = Post::with('comment')->find($id);
+    
+    
+        //$post = Post::find($id)->with('comment')->get();
+
+        //dd($post);
+
+        return view('posts/show',compact ('post'))->with('comment', $post->comment);
+       // return view('posts.show')->with('blogcomments', $post->blogcomments);
+
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Post $post)
     {
-        //
+
+    
+        return view('posts/updatepost', ['post' => $post]);
+       
     }
 
     /**
@@ -72,7 +93,22 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+
+        //return dd($request->input('post'));
+
+       // $post->title=$request->input('post'['title']);
+
+       $postdata = $request->input('post');
+
+
+        $post->update(['title'=>$postdata['title']]);
+        $post->update(['body'=>$postdata['body']]);
+
+        return redirect(route('posts.show', ['post' => $post->id]))->with('message', 'Post Updated');
+
+        // return dd($request);
+        // $Updatepost = $request->input('post');
+        
     }
 
     /**
@@ -83,8 +119,20 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+
+
+        $post->delete();
+
+        return redirect(route('posts.index'))->with('message', 'Post Deleted');
     }
+
+
+
 }
 
 
+
+
+
+
+//

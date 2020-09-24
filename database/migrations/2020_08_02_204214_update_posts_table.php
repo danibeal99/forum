@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Posts extends Migration
+class UpdatePostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,9 @@ class Posts extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('posts', function (Blueprint $table) {
+            $table->foreignId('user_id')->nullable()->constrained('users');
+        });
     }
 
     /**

@@ -15,7 +15,9 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+
                 </div>
+                <a href={{route('posts.index')}}>Go to Forum board</a> 
             </div>
         </div>
     </div>
